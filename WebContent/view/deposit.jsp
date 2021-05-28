@@ -8,5 +8,17 @@
 </head>
 <body>
 	This is deposit page.
+	<%-- [TODO] 카드 통장 체크 다른 페이지로 이동하기 --%>
+	<form action = "/atm_service/check/card" method = "post">
+		카드 통장을 투입해 주십시오:
+		<input type = "text" name = "accountNumber" /> <br>
+		<input type = "submit" value = "Card" />
+	</form>
+
+	<form action = "/atm_service/atm-services/deposit" method = "post"> 
+		입금할 금액을 넣어주십시오: <%-- Account 객체 가져와 포함 시켜주어야 합니다. --%>
+		<input type = "text" name = "amount" /> <br> <%-- 입금할 금액 --%>
+		<input type = "submit" value = "Deposit" /> <%-- controller 로 request 보내기 --%>
+	</form>
 </body>
 </html>
