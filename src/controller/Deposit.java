@@ -35,17 +35,24 @@ public class Deposit extends HttpServlet {
 		Account account = new Account();
 		int amount = 0; // 입금할 금액
 		int balance = 0; // 잔액
+		int tradingResult = 0; // 거래 결과
 		String page = null;
-		
-		amount = Integer.parseInt(request.getParameter("amount"));
-		ATMService atmService = new ATMServiceImpl();
-		account = atmService.deposit(account, amount);
 
-		if (account.getBalance() < 0) {
-			page = "/view/error.jsp";
-		} else {
+		String accountNumber = request.getParameter("accountNumber");
+		amount = Integer.parseInt(request.getParameter("amount"));
+
+		ATMService atmService = new ATMServiceImpl();
+		account = atmService.deposit(accountNumber, amount);
+		balance = account.getBalance();
+		tradingResult = account.getTradingResult();
+
+		if (account != null && tradingResult == 200) { // 계좌와 처리 결과가 정상
+			request.setAttribute("accountNumber", accountNumber);
 			request.setAttribute("balance", balance);
 			page = "/view/success.jsp";
+		} else {
+			request.setAttribute("errorMsg", "입금 실패하였습니다.");
+			page = "/view/error.jsp";
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(page);

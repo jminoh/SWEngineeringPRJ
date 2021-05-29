@@ -9,14 +9,14 @@ public interface ATMService {
 	 * @param account_number
 	 * @return
 	 */
-	public Account checkAccount(String account_number);
+	public int checkAccount(String accountNnumber);
 	
 	/**
 	 * 카드 체크 및 계좌 가져오기
 	 * @param account_number
 	 * @return
 	 */
-	public Account checkCard(String account_number);
+	public int checkCard(String accountNumber);
 	
 	/**
 	 * 입금
@@ -24,7 +24,7 @@ public interface ATMService {
 	 * @param amount
 	 * @return
 	 */
-	public Account deposit(Account account, int amount);
+	public Account deposit(String accountNumber, int amount);
 	
 	/**
 	 * 출금
@@ -32,7 +32,7 @@ public interface ATMService {
 	 * @param amount
 	 * @return
 	 */
-	public Account withdraw(Account account, int amount);
+	public Account withdraw(String accountNumber, int amount);
 	
 	/**
 	 * 송금
@@ -41,5 +41,5 @@ public interface ATMService {
 	 * @param amount
 	 * @return
 	 */
-	public Account transfer(Account userAccount, Account transferAccount, int amount);
+	public Account transfer(String accountNumber, String transferAccountNumber, int amount);
 }

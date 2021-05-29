@@ -32,16 +32,14 @@ public class Home extends HttpServlet {
 		// TODO Auto-generated method stub
 		String action = request.getParameter("action");
 		String page = null;
-		
-		if (action.equals("deposit")) {
-			page = "/view/deposit.jsp";
+
+		if (action.equals("index")) {
+			page = "/index.jsp";
+		}else {
+			request.setAttribute("action", action);
+			page = "/view/check.jsp";			
 		}
-		else if (action.equals("transfer")) {
-			page = "view/transfer.jsp";
-		}
-		else if (action.equals("withdraw")) {
-			page = "view/withdraw.jsp";
-		}
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher(page);
 		dispatcher.forward(request, response);
 	}

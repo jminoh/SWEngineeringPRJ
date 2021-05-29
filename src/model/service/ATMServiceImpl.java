@@ -6,53 +6,70 @@ import model.dto.Account;
 
 public class ATMServiceImpl implements ATMService{
 	ATMTrading atmTrading = new ATMTradingImpl();
-
-	// [TODO] 계좌정보 다른 곳에 저장하기 (캐시나 세션 등)
-	Account account = new Account();
+	//[TODO] 계속거래, 본인인증
 
 	@Override
-	public Account checkAccount(String accountNumber) {
+	public int checkAccount(String accountNumber) {
 		int exist = atmTrading.checkAccount(accountNumber); // 계좌 존재 여부 확인
 		System.out.println(exist);
-		if (exist > 0) {
-			account = atmTrading.getAccount(accountNumber); // 계좌 정보 가져오기
-			System.out.println(account.getAccount_number() +" "+ account.getBalance());
-		}else {
-			account = null; // 계좌 정보 없음
+		return exist;
+	}
+
+	@Override
+	public int checkCard(String accountNumber) {
+		int exist = atmTrading.checkAccount(accountNumber); // 계좌 존재 여부 확인
+		System.out.println(exist);
+		return exist;
+	}
+
+	@Override
+	public Account deposit(String accountNumber, int amount) {
+		Account account = null;
+		System.out.println("accountNumber" + accountNumber+ " amount "+ amount );
+		account = atmTrading.getAccount(accountNumber); // 계좌 정보 가져오기
+		System.out.println(account.getAccountNumber() +" "+ account.getBalance());
+		if (account != null) {
+			account = atmTrading.deposit(account, amount); // 정상 완료시 입금	
 		}
 		return account;
 	}
 
-
 	@Override
-	public Account checkCard(String accountNumber) {
-		int exist = atmTrading.checkAccount(accountNumber); // 계좌 존재 여부 확인
-		System.out.println(exist);
-		if (exist > 0) {
-			account = atmTrading.getAccount(accountNumber); // 계좌 정보 가져오기
-			System.out.println(account.getAccount_number() +" "+ account.getBalance());
-		}else {
-			account = null; // 계좌 정보 없음
+	public Account withdraw(String accountNumber, int amount) {
+		Account account = null;
+		System.out.println("accountNumber" + accountNumber+ " amount "+ amount );
+		account = atmTrading.getAccount(accountNumber); // 계좌 정보 가져오기
+		System.out.println(account.getAccountNumber() +" "+ account.getBalance());
+		if (account != null) {
+			account = atmTrading.withdraw(account, amount); // 정상 완료시 출금
 		}
 		return account;
 	}
 
 	@Override
-	public Account deposit(Account account, int amount) {
-		this.account = atmTrading.deposit(this.account, amount);
+	public Account transfer(String accountNumber, String transferAccountNumber, int amount) {
+		Account account = null;
+		Account transferAccount = null;
+		// 상대방 계좌 확인
+		int exist = checkAccount(transferAccountNumber); // 상대방 계좌 존재 여부 확인
+		System.out.println(exist);		
+		if (exist < 0) {
+			account = null;
+			return account;
+		}
+
+		// [TODO] 트랜잭션으로 둘 다 오류가 없어야만 기능이 확정되도록 변경
+		account = withdraw(accountNumber, amount); // 내 계좌 출금
+		if(account != null && account.getTradingResult() == 200) { // 성공 : 내 계좌 출금
+			transferAccount = deposit(transferAccountNumber, amount); // 송금 계좌에 입금
+			
+			if (transferAccount == null || account.getTradingResult() != 200) { // 오류 : 계좌 송금
+				account.setTradingResult(transferAccount.getTradingResult()); // 처리결과 오류 표시
+				transferAccount = deposit(accountNumber, amount); // 내 계좌 재입금
+			}
+		}
+
 		return account;
-	}
-
-	@Override
-	public Account withdraw(Account account, int amount) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Account transfer(Account userAccount, Account transferAccount, int amount) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 }

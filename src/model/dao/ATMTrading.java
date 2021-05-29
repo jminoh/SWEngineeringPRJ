@@ -6,24 +6,24 @@ public interface ATMTrading {
 	
 	/**
 	 * 계좌 체크
-	 * @param account_number
+	 * @param accountNumber
 	 * @return
 	 */
-	public int checkAccount(String account_number);
+	public int checkAccount(String accountNumber);
 	
 	/**
 	 * 카드 체크
-	 * @param account_number
+	 * @param accountNumber
 	 * @return
 	 */
-	public int checkCard(String account_number);
+	public int checkCard(String accountNumber);
 	
 	/**
 	 * 계좌 정보 가져오기
-	 * @param account_number
+	 * @param accountNumber
 	 * @return
 	 */
-	public Account getAccount(String account_number);
+	public Account getAccount(String accountNumber);
 
 	/**
 	 * 입금
@@ -40,14 +40,4 @@ public interface ATMTrading {
 	 * @return
 	 */
 	public Account withdraw(Account account, int amount);
-	
-	/**
-	 * 송금
-	 * @param userAccount
-	 * @param transferAccount
-	 * @param amount
-	 * @return
-	 */
-	public Account transfer(Account userAccount, Account transferAccount, int amount);
-
 }

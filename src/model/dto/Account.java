@@ -1,22 +1,23 @@
 package model.dto;
 
 public class Account {
-	private String account_number;
-	private int balance;
+	private String accountNumber; // °èÁÂ ¹øÈ£
+	private int balance; // °èÁÂ ÀÜ¾×
+	private int tradingResult = -100; // °Å·¡ °á°ú Ãâ·Â
 	
 	public Account() {}
 	
-	public Account(String account_number, int balance) {
-		this.account_number = account_number;
+	public Account(String accountNumber, int balance) {
+		this.accountNumber = accountNumber;
 		this.balance = balance;
 	}
 	
-	public void setAccount_number(String account_number) {
-		this.account_number = account_number;
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
 	}
 	
-	public String getAccount_number() {
-		return account_number;
+	public String getAccountNumber() {
+		return accountNumber;
 	}
 	
 	public void setBalance(int balance) {
@@ -25,5 +26,14 @@ public class Account {
 	
 	public int getBalance() {
 		return balance;
+	}
+	
+	public int setTradingResult (int result) {
+		tradingResult = result;
+		return tradingResult;
+	}
+	
+	public int getTradingResult () {
+		return tradingResult;
 	}
 }
