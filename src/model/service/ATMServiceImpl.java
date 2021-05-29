@@ -2,6 +2,8 @@ package model.service;
 
 import model.dao.ATMTrading;
 import model.dao.ATMTradingImpl;
+import model.dao.Certification;
+import model.dao.CertificationImpl;
 import model.dto.Account;
 
 public class ATMServiceImpl implements ATMService{
@@ -70,6 +72,27 @@ public class ATMServiceImpl implements ATMService{
 		}
 
 		return account;
+	}
+
+	@Override
+	public int certification(String accountNumber, int checkNumber) {
+		// TODO Auto-generated method stub
+		Certification cert = new CertificationImpl();
+		cert.setCertNumber(accountNumber);
+		int result = 0;
+		System.out.println("본인인증번호를 입력 : " + checkNumber);
+	
+		if(checkNumber == cert.getCertNumber()) {
+			System.out.println("본인인증에 성공했습니다.");
+			result = 200;
+		}
+		else if( checkNumber != cert.getCertNumber()) {
+			System.out.println("본인인증에 실패하였습니다.");
+			result = 600;
+		}
+		return result;
+			
+		
 	}
 	
 }

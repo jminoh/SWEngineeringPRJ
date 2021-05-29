@@ -2,22 +2,19 @@ package model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Random;
 
 import model.util.DBUtil;
 
 public class CertificationImpl implements Certification{
-	private int userID;
-	private boolean certification;
-	ATMTrading trading = new ATMTradingImpl();
+	private int certNumber;
 	Connection con;
 
 	@Override
 	public void deauthentication(String accountNumber) { //인증 해제
 		Connection con = null;
 		PreparedStatement pstmt = null; // 동적인 sql 문장을 실행하기 위한 객체
-		ResultSet rs = null; // select 문장에 의해 반환되는 레코드셋을 참조하기 위한 객체
 		
 		try {
 			con = DBUtil.getConnection();
@@ -38,10 +35,49 @@ public class CertificationImpl implements Certification{
 			se.printStackTrace();
 		}finally {
 			try {
-				DBUtil.dbClose(con, pstmt, rs);
+				DBUtil.dbClose(con, pstmt);
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
 		}
+	}
+	public void setCertNumber(String accountNumber) {
+		// 8자리 난수 만들기
+		Random rand = new Random(); 
+		String rst = Integer.toString(rand.nextInt(8) + 1);
+
+		for(int i=0; i < 7; i++){
+			rst += Integer.toString(rand.nextInt(9));
+		}
+		this.certNumber = Integer.parseInt(rst);
+
+		Connection con = null;
+		PreparedStatement pstmt = null; // 동적인 sql 문장을 실행하기 위한 객체
+		
+		// 인증번호 업데이트
+		try {
+			con = DBUtil.getConnection();
+			String sql = "update certification set cert_number = ? where certification.user_id in (select user.user_id from user where user.account_number = ?)";
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, certNumber);
+			pstmt.setString(2, accountNumber);
+			
+			pstmt.executeUpdate();
+		
+		}catch(SQLException se) {
+			se.printStackTrace();
+		}finally {
+			try {
+				DBUtil.dbClose(con, pstmt);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	public int getCertNumber() {
+		return certNumber;
 	}
 }

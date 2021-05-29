@@ -16,14 +16,14 @@ import model.service.ATMServiceImpl;
 /**
  * Servlet implementation class Card
  */
-@WebServlet("/check/card")
-public class CheckCard extends HttpServlet {
+@WebServlet("/certification")
+public class Certification extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CheckCard() {
+    public Certification() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,34 +32,33 @@ public class CheckCard extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String accountNumber = null;
-		String page = null;
-		int exist = 0;
+		Account account = new Account();
+		String page = null; // 다음 페이지 변수
+		int result = 0;
+
+		String accountNumber = request.getParameter("accountNumber");
+		int checkNumber = Integer.parseInt(request.getParameter("checkNumber"));
 		String action = request.getParameter("action");
-
-		if (request.getParameter("accountNumber") != null) {
-			accountNumber = request.getParameter("accountNumber");
-			ATMService atmService = new ATMServiceImpl();
-			exist = atmService.checkAccount(accountNumber); // 계좌 확인
-		}
-
-		if (exist > 0) { 
-			request.setAttribute("accountNumber", accountNumber); // 계좌번호 저장
-
-			if (action.equals("deposit")) { // 정상완료 시 입금화면으로 이동
-				page = "/view/deposit.jsp";
+		
+		ATMService atmService = new ATMServiceImpl();
+		result = atmService.certification(accountNumber, checkNumber);
+		
+		if (result == 200) { // 계좌와 처리 결과가 정상
+			request.setAttribute("accountNumber", accountNumber);
+			request.setAttribute("checkNumber", checkNumber);
+			
+			if (action.equals("transfer")) { // 정상완료 시 송금화면으로 이동
+				page = "/view/transfer.jsp";
 			}
-			else if (action.equals("transfer") || action.equals("withdraw")) { // 정상완료 시 송금 또는 출금화면으로 이동
-				request.setAttribute("action", action);
-				page = "/view/certification.jsp";
+			else if (action.equals("withdraw")) { // 정상완료 시 출금화면으로 이동
+				page = "/view/withdraw.jsp";
 			}
-		}
-		else { // 계좌 번호 없을 시 에러페이지로 이동
-			request.setAttribute("errorMsg", "계좌번호를 확인해주세요.");
+			
+		} else {
+			request.setAttribute("errorMsg", "본인인증이 실패하였습니다.");
 			page = "/view/error.jsp";
-		} 
-
+		}
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(page);
 		dispatcher.forward(request, response);
 	}

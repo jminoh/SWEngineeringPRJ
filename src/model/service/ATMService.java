@@ -42,4 +42,6 @@ public interface ATMService {
 	 * @return
 	 */
 	public Account transfer(String accountNumber, String transferAccountNumber, int amount);
+	
+	public int certification(String accountNumber, int checkNumber);
 }
