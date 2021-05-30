@@ -43,5 +43,24 @@ public interface ATMService {
 	 */
 	public Account transfer(String accountNumber, String transferAccountNumber, int amount);
 	
-	public int certification(String accountNumber, int checkNumber);
+	/**
+	 * 인증 번호 생성
+	 * @param accountNumber
+	 * @return
+	 */
+	public int setCertification(String accountNumber);
+	
+	/**
+	 * 인증 여부 체크
+	 * @param accountNumber
+	 * @return
+	 */
+	public int getCertification(String accountNumber);
+	
+	/**
+	 * 인증 해제
+	 * @param accountNumber
+	 * @return
+	 */
+	public int deauthentication(String accountNumber);
 }

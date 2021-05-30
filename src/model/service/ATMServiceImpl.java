@@ -75,24 +75,53 @@ public class ATMServiceImpl implements ATMService{
 	}
 
 	@Override
-	public int certification(String accountNumber, int checkNumber) {
+	public int setCertification(String accountNumber) {
 		// TODO Auto-generated method stub
 		Certification cert = new CertificationImpl();
-		cert.setCertNumber(accountNumber);
-		int result = 0;
-		System.out.println("본인인증번호를 입력 : " + checkNumber);
-	
-		if(checkNumber == cert.getCertNumber()) {
-			System.out.println("본인인증에 성공했습니다.");
+		int result = cert.setCertNumber(accountNumber);
+		
+		if(result > 0) {
+			System.out.println("본인인증을 위한 인증번호 설정 완료.");
 			result = 200;
 		}
-		else if( checkNumber != cert.getCertNumber()) {
+		else {
 			System.out.println("본인인증에 실패하였습니다.");
 			result = 600;
 		}
 		return result;
-			
+	}
+	
+	public int getCertification(String accountNumber) {
+		Certification cert = new CertificationImpl();
+		int certification = cert.getCertification(accountNumber);
+		int result = 0;
+	
+		if(certification > 0) {
+			System.out.println("본인인증에 성공했습니다.");
+			result = 200;
+		}
+		else {
+			System.out.println("본인인증에 실패하였습니다.");
+			result = 600;
+		}
+		return result;
 		
+	}
+
+	@Override
+	public int deauthentication(String accountNumber) {
+		Certification cert = new CertificationImpl();
+		int result = cert.deauthentication(accountNumber);	
+		
+		if(result > 0) {
+			System.out.println("인증해제 성공했습니다.");
+			result = 200;
+		}
+		else {
+			System.out.println("인증해제 실패하였습니다.");
+			result = 600;
+		}
+		return result;
 	}
 	
 }

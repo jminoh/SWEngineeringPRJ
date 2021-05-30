@@ -37,10 +37,10 @@ public class CheckCard extends HttpServlet {
 		String page = null;
 		int exist = 0;
 		String action = request.getParameter("action");
+		ATMService atmService = new ATMServiceImpl();
 
 		if (request.getParameter("accountNumber") != null) {
 			accountNumber = request.getParameter("accountNumber");
-			ATMService atmService = new ATMServiceImpl();
 			exist = atmService.checkAccount(accountNumber); // 계좌 확인
 		}
 
@@ -51,8 +51,15 @@ public class CheckCard extends HttpServlet {
 				page = "/view/deposit.jsp";
 			}
 			else if (action.equals("transfer") || action.equals("withdraw")) { // 정상완료 시 송금 또는 출금화면으로 이동
-				request.setAttribute("action", action);
-				page = "/view/certification.jsp";
+				// 본인인증 페이지 이동 전, 본인인증 번호 세팅
+				int result = atmService.setCertification(accountNumber);
+				if (result == 200) {
+					request.setAttribute("action", action);
+					page = "/view/checkCertification.jsp";
+				} else {
+					request.setAttribute("errMsg", "다음 단계(본인인증)를 진행할 수 없습니다.");
+					page = "/view/error.jsp";
+				}
 			}
 		}
 		else { // 계좌 번호 없을 시 에러페이지로 이동

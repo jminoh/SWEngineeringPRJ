@@ -59,6 +59,8 @@ public class Transfer extends HttpServlet {
 			}
 			page = "/view/error.jsp";
 		}
+		
+		atmService.deauthentication(accountNumber);
 		RequestDispatcher dispatcher = request.getRequestDispatcher(page);
 		dispatcher.forward(request, response);
 	}

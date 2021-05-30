@@ -37,15 +37,13 @@ public class Certification extends HttpServlet {
 		int result = 0;
 
 		String accountNumber = request.getParameter("accountNumber");
-		int checkNumber = Integer.parseInt(request.getParameter("checkNumber"));
 		String action = request.getParameter("action");
 		
 		ATMService atmService = new ATMServiceImpl();
-		result = atmService.certification(accountNumber, checkNumber);
+		result = atmService.getCertification(accountNumber);
 		
 		if (result == 200) { // 계좌와 처리 결과가 정상
 			request.setAttribute("accountNumber", accountNumber);
-			request.setAttribute("checkNumber", checkNumber);
 			
 			if (action.equals("transfer")) { // 정상완료 시 송금화면으로 이동
 				page = "/view/transfer.jsp";
@@ -56,6 +54,7 @@ public class Certification extends HttpServlet {
 			
 		} else {
 			request.setAttribute("errorMsg", "본인인증이 실패하였습니다.");
+			atmService.deauthentication(accountNumber);
 			page = "/view/error.jsp";
 		}
 		
