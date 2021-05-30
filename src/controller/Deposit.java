@@ -40,6 +40,7 @@ public class Deposit extends HttpServlet {
 
 		String accountNumber = request.getParameter("accountNumber");
 		amount = Integer.parseInt(request.getParameter("amount"));
+		String action = request.getParameter("action");
 
 		ATMService atmService = new ATMServiceImpl();
 		account = atmService.deposit(accountNumber, amount);
@@ -47,6 +48,7 @@ public class Deposit extends HttpServlet {
 		tradingResult = account.getTradingResult();
 
 		if (account != null && tradingResult == 200) { // 계좌와 처리 결과가 정상
+			request.setAttribute("action", action);
 			request.setAttribute("accountNumber", accountNumber);
 			request.setAttribute("balance", balance);
 			page = "/view/success.jsp";

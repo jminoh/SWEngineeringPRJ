@@ -44,6 +44,7 @@ public class Certification extends HttpServlet {
 		
 		if (result == 200) { // 계좌와 처리 결과가 정상
 			request.setAttribute("accountNumber", accountNumber);
+			request.setAttribute("action", action);
 			
 			if (action.equals("transfer")) { // 정상완료 시 송금화면으로 이동
 				page = "/view/transfer.jsp";

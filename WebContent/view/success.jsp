@@ -10,7 +10,19 @@
 	This is success page. <br>
 	${accountNumber} : ${balance}
 	<br><br>
-	<p><a href = "/atm_service/home?action=index"> 메인으로 </a>
+	계속 거래하시겠습니까?<br>
+	<form action = "/atm_service/check/continue" method = "post">
+		<input type = "hidden" name = "action" value = "${action}" />
+		<input type = "hidden" name = "accountNumber" value = "${accountNumber}"/>
+		<input type = "hidden" name = "continue" value = "yes"/>
+		<input type = "submit" value = "계속하기" />
+	</form>
+	<form action = "/atm_service/check/continue" method = "post">
+		<input type = "hidden" name = "action" value = "${action}" />
+		<input type = "hidden" name = "accountNumber" value = "${accountNumber}"/>
+		<input type = "hidden" name = "continue" value = "no"/>
+		<input type = "submit" value = "메인으로" />
+	</form>
 	
 </body>
 </html>

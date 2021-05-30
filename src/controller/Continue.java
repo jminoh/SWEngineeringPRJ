@@ -1,5 +1,6 @@
 package controller;
 
+
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -9,21 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.dto.Account;
 import model.service.ATMService;
 import model.service.ATMServiceImpl;
 
 /**
- * Servlet implementation class Card
+ * Servlet implementation class Home
  */
-@WebServlet("/atm-services/withdraw")
-public class Withdraw extends HttpServlet {
+@WebServlet("/check/continue")
+public class Continue extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Withdraw() {
+    public Continue() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,35 +32,31 @@ public class Withdraw extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Account account = new Account();
-		int amount = 0; // 출금할 금액
-		int balance = 0; // 잔액
-		int tradingResult = 0; // 거래 결과
-		String page = null;
-
+		// TODO Auto-generated method stub
 		String action = request.getParameter("action");
 		String accountNumber = request.getParameter("accountNumber");
-		amount = Integer.parseInt(request.getParameter("amount"));
+		String checkContinue = request.getParameter("continue");
+		String page = null;
 
-		ATMService atmService = new ATMServiceImpl();
-		account = atmService.withdraw(accountNumber, amount);
-		balance = account.getBalance();
-		tradingResult = account.getTradingResult();
-
-		if (account != null && tradingResult == 200) { // 계좌와 처리 결과가 정상
+		if (checkContinue.equals("yes")) {
 			request.setAttribute("accountNumber", accountNumber);
-			request.setAttribute("balance", balance);
-			request.setAttribute("action", action); // 계속 거래 시 넘겨받을 action 정보
-			page = "/view/success.jsp";
+			request.setAttribute("action", action);
+
+			if (action.equals("deposit")) {
+				page = "/view/deposit.jsp";
+			}else if (action.equals("transfer")) {
+				page = "/view/transfer.jsp";			
+			}else if (action.equals("withdraw")) {
+				page = "/view/withdraw.jsp";
+			}			
 		} else {
-			switch (tradingResult)
-			{
-				case 600 : request.setAttribute("errorMsg", "거래에 실패하였습니다."); break; // 처리 실패
-				case 700 : request.setAttribute("errorMsg", "출금하려는 금액이 계좌 잔액보다 많습니다."); break; // 계좌 잔액 부족
+			if (action.equals("transfer") || action.equals("withdraw")) {
+				ATMService atmService = new ATMServiceImpl();
+				atmService.deauthentication(accountNumber);
 			}
-			page = "/view/error.jsp";
+			page = "/index.jsp";
 		}
-		
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher(page);
 		dispatcher.forward(request, response);
 	}

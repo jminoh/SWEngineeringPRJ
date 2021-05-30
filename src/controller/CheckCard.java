@@ -46,6 +46,7 @@ public class CheckCard extends HttpServlet {
 
 		if (exist > 0) { 
 			request.setAttribute("accountNumber", accountNumber); // 계좌번호 저장
+			request.setAttribute("action", action);
 
 			if (action.equals("deposit")) { // 정상완료 시 입금화면으로 이동
 				page = "/view/deposit.jsp";
@@ -54,7 +55,6 @@ public class CheckCard extends HttpServlet {
 				// 본인인증 페이지 이동 전, 본인인증 번호 세팅
 				int result = atmService.setCertification(accountNumber);
 				if (result == 200) {
-					request.setAttribute("action", action);
 					page = "/view/checkCertification.jsp";
 				} else {
 					request.setAttribute("errMsg", "다음 단계(본인인증)를 진행할 수 없습니다.");

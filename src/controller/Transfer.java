@@ -38,10 +38,11 @@ public class Transfer extends HttpServlet {
 		int tradingResult = 0; // 거래 결과
 		String page = null;
 		
+		String action = request.getParameter("action");
 		String accountNumber = request.getParameter("accountNumber");
 		String transferAccountNumber = request.getParameter("transferAccountNumber");
 		amount = Integer.parseInt(request.getParameter("amount"));
-
+		
 		ATMService atmService = new ATMServiceImpl();
 		account = atmService.transfer(accountNumber, transferAccountNumber, amount);
 		balance = account.getBalance();
@@ -50,6 +51,7 @@ public class Transfer extends HttpServlet {
 		if (account != null && tradingResult == 200) { // 계좌와 처리 결과가 정상
 			request.setAttribute("accountNumber", accountNumber);
 			request.setAttribute("balance", balance);
+			request.setAttribute("action", action);
 			page = "/view/success.jsp";
 		} else {
 			switch (tradingResult)
@@ -60,7 +62,6 @@ public class Transfer extends HttpServlet {
 			page = "/view/error.jsp";
 		}
 		
-		atmService.deauthentication(accountNumber);
 		RequestDispatcher dispatcher = request.getRequestDispatcher(page);
 		dispatcher.forward(request, response);
 	}
