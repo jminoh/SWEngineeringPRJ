@@ -33,9 +33,9 @@ public class Transfer extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Account account = new Account();
-		int amount = 0; // ¼Û±İÇÒ ±İ¾×
-		int balance = 0; // ÀÜ¾×
-		int tradingResult = 0; // °Å·¡ °á°ú
+		int amount = 0; // ì†¡ê¸ˆí•  ê¸ˆì•¡
+		int balance = 0; // ì”ì•¡
+		int tradingResult = 0; // ê±°ë˜ ê²°ê³¼
 		String page = null;
 		
 		String action = request.getParameter("action");
@@ -48,7 +48,7 @@ public class Transfer extends HttpServlet {
 		balance = account.getBalance();
 		tradingResult = account.getTradingResult();
 
-		if (account != null && tradingResult == 200) { // °èÁÂ¿Í Ã³¸® °á°ú°¡ Á¤»ó
+		if (account != null && tradingResult == 200) { // ê³„ì¢Œì™€ ì²˜ë¦¬ ê²°ê³¼ê°€ ì •ìƒ
 			request.setAttribute("accountNumber", accountNumber);
 			request.setAttribute("balance", balance);
 			request.setAttribute("action", action);
@@ -56,8 +56,8 @@ public class Transfer extends HttpServlet {
 		} else {
 			switch (tradingResult)
 			{
-				case 600 : request.setAttribute("errorMsg", "°Å·¡¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù."); break; // Ã³¸® ½ÇÆĞ
-				case 700 : request.setAttribute("errorMsg", "Ãâ±İÇÏ·Á´Â ±İ¾×ÀÌ °èÁÂ ÀÜ¾×º¸´Ù ¸¹½À´Ï´Ù."); break; // °èÁÂ ÀÜ¾× ºÎÁ·
+				case 600 : request.setAttribute("errorMsg", "ê±°ë˜ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤."); break; // ì²˜ë¦¬ ì‹¤íŒ¨
+				case 700 : request.setAttribute("errorMsg", "ì¶œê¸ˆí•˜ë ¤ëŠ” ê¸ˆì•¡ì´ ê³„ì¢Œ ì”ì•¡ë³´ë‹¤ ë§ìŠµë‹ˆë‹¤."); break; // ê³„ì¢Œ ì”ì•¡ ë¶€ì¡±
 			}
 			page = "/view/error.jsp";
 		}

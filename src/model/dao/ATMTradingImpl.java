@@ -13,10 +13,10 @@ public class ATMTradingImpl implements ATMTrading {
 	@Override
 	public int checkAccount(String accountNumber) {
 		Connection con = null;
-		PreparedStatement pstmt = null; // µ¿ÀûÀÎ sql ¹®ÀåÀ» ½ÇÇàÇÏ±â À§ÇÑ °´Ã¼
-		ResultSet rs = null; // select ¹®Àå¿¡ ÀÇÇØ ¹İÈ¯µÇ´Â ·¹ÄÚµå¼ÂÀ» ÂüÁ¶ÇÏ±â À§ÇÑ °´Ã¼
+		PreparedStatement pstmt = null; // ë™ì ì¸ sql ë¬¸ì¥ì„ ì‹¤í–‰í•˜ê¸° ìœ„í•œ ê°ì²´
+		ResultSet rs = null; // select ë¬¸ì¥ì— ì˜í•´ ë°˜í™˜ë˜ëŠ” ë ˆì½”ë“œì…‹ì„ ì°¸ì¡°í•˜ê¸° ìœ„í•œ ê°ì²´
 
-		int exist = 0; // Ä«µå/ÅëÀåÀÌ ÀÖ´ÂÁö È®ÀÎÇÏ±â À§ÇÑ º¯¼ö
+		int exist = 0; // ì¹´ë“œ/í†µì¥ì´ ìˆëŠ”ì§€ í™•ì¸í•˜ê¸° ìœ„í•œ ë³€ìˆ˜
 		String sql;
 
 		try {
@@ -27,12 +27,12 @@ public class ATMTradingImpl implements ATMTrading {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				exist = rs.getInt("count(*)"); // ¹®ÀÚ¿­ Å¸ÀÔÀÇ µ¥ÀÌÅÍ °èÁÂ¹øÈ£¸¦ °¡Á®¿Í ÀÔ±İ°èÁÂÀÇ °èÁÂ¹øÈ£·Î ¼³Á¤
+				exist = rs.getInt("count(*)"); // ë¬¸ìì—´ íƒ€ì…ì˜ ë°ì´í„° ê³„ì¢Œë²ˆí˜¸ë¥¼ ê°€ì ¸ì™€ ì…ê¸ˆê³„ì¢Œì˜ ê³„ì¢Œë²ˆí˜¸ë¡œ ì„¤ì •
 			}
 			
 		}catch(SQLException se) {
 			se.printStackTrace();
-		}finally { // °´Ã¼ ´İ±â
+		}finally { // ê°ì²´ ë‹«ê¸°
 			try {
 				DBUtil.dbClose(con, pstmt, rs);
 			}catch(Exception e) {
@@ -46,10 +46,10 @@ public class ATMTradingImpl implements ATMTrading {
 	@Override
 	public int checkCard(String accountNumber) {
 		Connection con = null;
-		PreparedStatement pstmt = null; // µ¿ÀûÀÎ sql ¹®ÀåÀ» ½ÇÇàÇÏ±â À§ÇÑ °´Ã¼
-		ResultSet rs = null; // select ¹®Àå¿¡ ÀÇÇØ ¹İÈ¯µÇ´Â ·¹ÄÚµå¼ÂÀ» ÂüÁ¶ÇÏ±â À§ÇÑ °´Ã¼
+		PreparedStatement pstmt = null; // ë™ì ì¸ sql ë¬¸ì¥ì„ ì‹¤í–‰í•˜ê¸° ìœ„í•œ ê°ì²´
+		ResultSet rs = null; // select ë¬¸ì¥ì— ì˜í•´ ë°˜í™˜ë˜ëŠ” ë ˆì½”ë“œì…‹ì„ ì°¸ì¡°í•˜ê¸° ìœ„í•œ ê°ì²´
 
-		int exist = 0; // Ä«µå/ÅëÀåÀÌ ÀÖ´ÂÁö È®ÀÎÇÏ±â À§ÇÑ º¯¼ö
+		int exist = 0; // ì¹´ë“œ/í†µì¥ì´ ìˆëŠ”ì§€ í™•ì¸í•˜ê¸° ìœ„í•œ ë³€ìˆ˜
 		String sql;
 
 		try {
@@ -60,12 +60,12 @@ public class ATMTradingImpl implements ATMTrading {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				exist = rs.getInt("count(*)"); // ¹®ÀÚ¿­ Å¸ÀÔÀÇ µ¥ÀÌÅÍ °èÁÂ¹øÈ£¸¦ °¡Á®¿Í ÀÔ±İ°èÁÂÀÇ °èÁÂ¹øÈ£·Î ¼³Á¤
+				exist = rs.getInt("count(*)"); // ë¬¸ìì—´ íƒ€ì…ì˜ ë°ì´í„° ê³„ì¢Œë²ˆí˜¸ë¥¼ ê°€ì ¸ì™€ ì…ê¸ˆê³„ì¢Œì˜ ê³„ì¢Œë²ˆí˜¸ë¡œ ì„¤ì •
 			}
 			
 		}catch(SQLException se) {
 			se.printStackTrace();
-		}finally { // °´Ã¼ ´İ±â
+		}finally { // ê°ì²´ ë‹«ê¸°
 			try {
 				DBUtil.dbClose(con, pstmt, rs);
 			}catch(Exception e) {
@@ -79,26 +79,26 @@ public class ATMTradingImpl implements ATMTrading {
 	@Override
 	public Account getAccount(String accountNumber) {
 		Connection con = null;
-		PreparedStatement pstmt = null; // µ¿ÀûÀÎ sql ¹®ÀåÀ» ½ÇÇàÇÏ±â À§ÇÑ °´Ã¼
-		ResultSet rs = null; // select ¹®Àå¿¡ ÀÇÇØ ¹İÈ¯µÇ´Â ·¹ÄÚµå¼ÂÀ» ÂüÁ¶ÇÏ±â À§ÇÑ °´Ã¼
+		PreparedStatement pstmt = null; // ë™ì ì¸ sql ë¬¸ì¥ì„ ì‹¤í–‰í•˜ê¸° ìœ„í•œ ê°ì²´
+		ResultSet rs = null; // select ë¬¸ì¥ì— ì˜í•´ ë°˜í™˜ë˜ëŠ” ë ˆì½”ë“œì…‹ì„ ì°¸ì¡°í•˜ê¸° ìœ„í•œ ê°ì²´
 
-		Account account = new Account(); // ÀÔ±İ °èÁÂ
+		Account account = new Account(); // ì…ê¸ˆ ê³„ì¢Œ
 		String sql;
 		try {
 			con = DBUtil.getConnection();
-			sql = "select * from account where account_number = ?"; // ÅõÀÔÇÑ Ä«µå/ÅëÀå¿¡ ´ëÇÑ ·¹ÄÚµå¸¦ ¹İÈ¯ÇÏ´Â sql¹®
-			pstmt = con.prepareStatement(sql); // pstmt °´Ã¼¿¡ sql ±¸¹®À» ÆÄ½Ì
-			pstmt.setString(1, accountNumber); // sql ±¸¹®¿¡ Ã¹¹øÂ° ? ¿¡´Â accountNumber °ªÀ» ¹ÙÀÎµù
-			rs = pstmt.executeQuery(); // select ¹®Àå¿¡ ÀÇÇØ ¹İÈ¯µÇ´Â ·¹ÄÚµå ¼ÂÀ» rs °´Ã¼°¡ ÂüÁ¶
+			sql = "select * from account where account_number = ?"; // íˆ¬ì…í•œ ì¹´ë“œ/í†µì¥ì— ëŒ€í•œ ë ˆì½”ë“œë¥¼ ë°˜í™˜í•˜ëŠ” sqlë¬¸
+			pstmt = con.prepareStatement(sql); // pstmt ê°ì²´ì— sql êµ¬ë¬¸ì„ íŒŒì‹±
+			pstmt.setString(1, accountNumber); // sql êµ¬ë¬¸ì— ì²«ë²ˆì§¸ ? ì—ëŠ” accountNumber ê°’ì„ ë°”ì¸ë”©
+			rs = pstmt.executeQuery(); // select ë¬¸ì¥ì— ì˜í•´ ë°˜í™˜ë˜ëŠ” ë ˆì½”ë“œ ì…‹ì„ rs ê°ì²´ê°€ ì°¸ì¡°
 		
 			while(rs.next()) {
-				account.setAccountNumber(rs.getString("account_number")); // ¹®ÀÚ¿­ Å¸ÀÔÀÇ µ¥ÀÌÅÍ °èÁÂ¹øÈ£¸¦ °¡Á®¿Í ÀÔ±İ°èÁÂÀÇ °èÁÂ¹øÈ£·Î ¼³Á¤
-				account.setBalance(rs.getInt("balance")); // Á¤¼öÇü Å¸ÀÔÀÇ µ¥ÀÌÅÍ ÀÜ¾×À» °¡Á®¿Í ÀÔ±İ°èÁÂÀÇ ÀÜ¾×À¸·Î ¼³Á¤
+				account.setAccountNumber(rs.getString("account_number")); // ë¬¸ìì—´ íƒ€ì…ì˜ ë°ì´í„° ê³„ì¢Œë²ˆí˜¸ë¥¼ ê°€ì ¸ì™€ ì…ê¸ˆê³„ì¢Œì˜ ê³„ì¢Œë²ˆí˜¸ë¡œ ì„¤ì •
+				account.setBalance(rs.getInt("balance")); // ì •ìˆ˜í˜• íƒ€ì…ì˜ ë°ì´í„° ì”ì•¡ì„ ê°€ì ¸ì™€ ì…ê¸ˆê³„ì¢Œì˜ ì”ì•¡ìœ¼ë¡œ ì„¤ì •
 				System.out.println("balance : " + account.getBalance());
 			}
 		}catch(SQLException se) {
 			se.printStackTrace();
-		}finally { // °´Ã¼ ´İ±â
+		}finally { // ê°ì²´ ë‹«ê¸°
 			try {
 				DBUtil.dbClose(con, pstmt, rs);
 			}catch(Exception e) {
@@ -112,30 +112,30 @@ public class ATMTradingImpl implements ATMTrading {
 	@Override
 	public Account deposit(Account account, int amount) {
 		Connection con = null;
-		PreparedStatement pstmt = null; // µ¿ÀûÀÎ sql ¹®ÀåÀ» ½ÇÇàÇÏ±â À§ÇÑ °´Ã¼
-		ResultSet rs = null; // select ¹®Àå¿¡ ÀÇÇØ ¹İÈ¯µÇ´Â ·¹ÄÚµå¼ÂÀ» ÂüÁ¶ÇÏ±â À§ÇÑ °´Ã¼
-		int balance = 0; // ÀÜ¾×
+		PreparedStatement pstmt = null; // ë™ì ì¸ sql ë¬¸ì¥ì„ ì‹¤í–‰í•˜ê¸° ìœ„í•œ ê°ì²´
+		ResultSet rs = null; // select ë¬¸ì¥ì— ì˜í•´ ë°˜í™˜ë˜ëŠ” ë ˆì½”ë“œì…‹ì„ ì°¸ì¡°í•˜ê¸° ìœ„í•œ ê°ì²´
+		int balance = 0; // ì”ì•¡
 		
 		try {
 			con = DBUtil.getConnection();
-			String sql = "UPDATE account set balance = ? where account_number = ?"; // °èÁÂ¿¡ ³²¾ÆÀÖ´Â ÀÜ¾×À» ¹Ù²Ù±â À§ÇÑ sql¹®
+			String sql = "UPDATE account set balance = ? where account_number = ?"; // ê³„ì¢Œì— ë‚¨ì•„ìˆëŠ” ì”ì•¡ì„ ë°”ê¾¸ê¸° ìœ„í•œ sqlë¬¸
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, amount + account.getBalance());
 			pstmt.setString(2, account.getAccountNumber());
 			
-			int count = pstmt.executeUpdate(); // update °ü·Ã ±¸¹®¿¡¼­ ¹İ¿µµÈ ·¹ÄÚµåÀÇ °Ç¼ö¸¦ ¹İÈ¯
+			int count = pstmt.executeUpdate(); // update ê´€ë ¨ êµ¬ë¬¸ì—ì„œ ë°˜ì˜ëœ ë ˆì½”ë“œì˜ ê±´ìˆ˜ë¥¼ ë°˜í™˜
 			if(count > 0) {
 				balance = account.getBalance() + amount;
 				account.setBalance(balance);
-				account.setTradingResult(200); // Á¤»óÄÚµå 200 : Á¤»ó Ã³¸®
+				account.setTradingResult(200); // ì •ìƒì½”ë“œ 200 : ì •ìƒ ì²˜ë¦¬
 			}else {
-				account.setTradingResult(600); // ¿À·ùÄÚµå 600 : Ã³¸® ¿À·ù
+				account.setTradingResult(600); // ì˜¤ë¥˜ì½”ë“œ 600 : ì²˜ë¦¬ ì˜¤ë¥˜
 			}
 
 		}catch(SQLException se) {
 			se.printStackTrace();
 			account.setTradingResult(600);
-		}finally { // °´Ã¼ ´İ±â
+		}finally { // ê°ì²´ ë‹«ê¸°
 			try {
 				DBUtil.dbClose(con, pstmt, rs);
 			}catch(Exception e) {
@@ -149,11 +149,11 @@ public class ATMTradingImpl implements ATMTrading {
 	@Override
 	public Account withdraw(Account account, int amount) {
 		Connection con = null;
-		PreparedStatement pstmt = null; // µ¿ÀûÀÎ sql ¹®ÀåÀ» ½ÇÇàÇÏ±â À§ÇÑ °´Ã¼
-		ResultSet rs = null; // select ¹®Àå¿¡ ÀÇÇØ ¹İÈ¯µÇ´Â ·¹ÄÚµå¼ÂÀ» ÂüÁ¶ÇÏ±â À§ÇÑ °´Ã¼
-		int balance = 0; // ÀÜ¾×
+		PreparedStatement pstmt = null; // ë™ì ì¸ sql ë¬¸ì¥ì„ ì‹¤í–‰í•˜ê¸° ìœ„í•œ ê°ì²´
+		ResultSet rs = null; // select ë¬¸ì¥ì— ì˜í•´ ë°˜í™˜ë˜ëŠ” ë ˆì½”ë“œì…‹ì„ ì°¸ì¡°í•˜ê¸° ìœ„í•œ ê°ì²´
+		int balance = 0; // ì”ì•¡
 		
-		if(account.getBalance() - amount > 0) { // °èÁÂ ÀÜ¾×ÀÌ Ãâ±İÇÏ·Á´Â ¾×¼öº¸´Ù ¸¹À¸¸é ½ÇÇà
+		if(account.getBalance() - amount > 0) { // ê³„ì¢Œ ì”ì•¡ì´ ì¶œê¸ˆí•˜ë ¤ëŠ” ì•¡ìˆ˜ë³´ë‹¤ ë§ìœ¼ë©´ ì‹¤í–‰
 			try {
 				con = DBUtil.getConnection();
 				String sql = "UPDATE account set balance = ? where account_number = ?";
@@ -161,8 +161,8 @@ public class ATMTradingImpl implements ATMTrading {
 				pstmt.setInt(1, account.getBalance() - amount);
 				pstmt.setString(2, account.getAccountNumber());
 		
-				int count = pstmt.executeUpdate(); // count´Â updateµÈ ÇàÀÇ ¼ö
-				if(count > 0) { // update¿¡ ¼º°øÇß´Ù¸é
+				int count = pstmt.executeUpdate(); // countëŠ” updateëœ í–‰ì˜ ìˆ˜
+				if(count > 0) { // updateì— ì„±ê³µí–ˆë‹¤ë©´
 					System.out.println("withdraw success");
 					System.out.println("balance : " + (account.getBalance() - amount));
 					balance = account.getBalance() - amount;
@@ -177,7 +177,7 @@ public class ATMTradingImpl implements ATMTrading {
 				se.printStackTrace();
 				account.setTradingResult(600);
 
-			}finally { // °´Ã¼ ´İ±â
+			}finally { // ê°ì²´ ë‹«ê¸°
 				try {
 					DBUtil.dbClose(con, pstmt, rs);
 				}catch(Exception e) {
@@ -186,9 +186,9 @@ public class ATMTradingImpl implements ATMTrading {
 				}
 			}
 		}
-		else { // °èÁÂ ÀÜ¾×ÀÌ Ãâ±İÇÏ·Á´Â ¾×¼öº¸´Ù ÀûÀ¸¸é ½ÇÇà
-			System.out.println("Ãâ±İÇÏ·Á´Â ±İ¾×ÀÌ °èÁÂ ÀÜ¾×º¸´Ù ¸¹½À´Ï´Ù.");
-			account.setTradingResult(700); // ¿À·ù ÄÚµå 700 : °èÁÂ ÀÜ¾× ºÎÁ·
+		else { // ê³„ì¢Œ ì”ì•¡ì´ ì¶œê¸ˆí•˜ë ¤ëŠ” ì•¡ìˆ˜ë³´ë‹¤ ì ìœ¼ë©´ ì‹¤í–‰
+			System.out.println("ì¶œê¸ˆí•˜ë ¤ëŠ” ê¸ˆì•¡ì´ ê³„ì¢Œ ì”ì•¡ë³´ë‹¤ ë§ìŠµë‹ˆë‹¤.");
+			account.setTradingResult(700); // ì˜¤ë¥˜ ì½”ë“œ 700 : ê³„ì¢Œ ì”ì•¡ ë¶€ì¡±
 		}
 		
 		return account;

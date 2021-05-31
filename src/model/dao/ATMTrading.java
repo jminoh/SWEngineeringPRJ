@@ -5,28 +5,28 @@ import model.dto.Account;
 public interface ATMTrading {
 	
 	/**
-	 * °èÁÂ Ã¼Å©
+	 * ê³„ì¢Œ ì²´í¬
 	 * @param accountNumber
 	 * @return
 	 */
 	public int checkAccount(String accountNumber);
 	
 	/**
-	 * Ä«µå Ã¼Å©
+	 * ì¹´ë“œ ì²´í¬
 	 * @param accountNumber
 	 * @return
 	 */
 	public int checkCard(String accountNumber);
 	
 	/**
-	 * °èÁÂ Á¤º¸ °¡Á®¿À±â
+	 * ê³„ì¢Œ ì •ë³´ ê°€ì ¸ì˜¤ê¸°
 	 * @param accountNumber
 	 * @return
 	 */
 	public Account getAccount(String accountNumber);
 
 	/**
-	 * ÀÔ±İ
+	 * ì…ê¸ˆ
 	 * @param account
 	 * @param amount
 	 * @return
@@ -34,7 +34,7 @@ public interface ATMTrading {
 	public Account deposit(Account account, int amount);
 	
 	/**
-	 * Ãâ±İ
+	 * ì¶œê¸ˆ
 	 * @param account
 	 * @param amount
 	 * @return

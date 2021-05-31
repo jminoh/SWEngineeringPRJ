@@ -1,9 +1,9 @@
 package model.dto;
 
 public class Account {
-	private String accountNumber; // °èÁÂ ¹øÈ£
-	private int balance; // °èÁÂ ÀÜ¾×
-	private int tradingResult = -100; // °Å·¡ °á°ú Ãâ·Â
+	private String accountNumber; // ê³„ì¢Œ ë²ˆí˜¸
+	private int balance; // ê³„ì¢Œ ì”ì•¡
+	private int tradingResult = -100; // ê±°ë˜ ê²°ê³¼ ì¶œë ¥
 	
 	public Account() {}
 	

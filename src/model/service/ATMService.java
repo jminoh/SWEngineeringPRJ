@@ -5,21 +5,21 @@ import model.dto.Account;
 public interface ATMService {
 
 	/**
-	 * °èÁÂ Ã¼Å© ¹× °èÁÂ °¡Á®¿À±â
+	 * ê³„ì¢Œ ì²´í¬ ë° ê³„ì¢Œ ê°€ì ¸ì˜¤ê¸°
 	 * @param account_number
 	 * @return
 	 */
 	public int checkAccount(String accountNnumber);
 	
 	/**
-	 * Ä«µå Ã¼Å© ¹× °èÁÂ °¡Á®¿À±â
+	 * ì¹´ë“œ ì²´í¬ ë° ê³„ì¢Œ ê°€ì ¸ì˜¤ê¸°
 	 * @param account_number
 	 * @return
 	 */
 	public int checkCard(String accountNumber);
 	
 	/**
-	 * ÀÔ±İ
+	 * ì…ê¸ˆ
 	 * @param account
 	 * @param amount
 	 * @return
@@ -27,7 +27,7 @@ public interface ATMService {
 	public Account deposit(String accountNumber, int amount);
 	
 	/**
-	 * Ãâ±İ
+	 * ì¶œê¸ˆ
 	 * @param account
 	 * @param amount
 	 * @return
@@ -35,7 +35,7 @@ public interface ATMService {
 	public Account withdraw(String accountNumber, int amount);
 	
 	/**
-	 * ¼Û±İ
+	 * ì†¡ê¸ˆ
 	 * @param userAccount
 	 * @param transferAccount
 	 * @param amount
@@ -44,21 +44,21 @@ public interface ATMService {
 	public Account transfer(String accountNumber, String transferAccountNumber, int amount);
 	
 	/**
-	 * ÀÎÁõ ¹øÈ£ »ı¼º
+	 * ì¸ì¦ ë²ˆí˜¸ ìƒì„±
 	 * @param accountNumber
 	 * @return
 	 */
 	public int setCertification(String accountNumber);
 	
 	/**
-	 * ÀÎÁõ ¿©ºÎ Ã¼Å©
+	 * ì¸ì¦ ì—¬ë¶€ ì²´í¬
 	 * @param accountNumber
 	 * @return
 	 */
 	public int getCertification(String accountNumber);
 	
 	/**
-	 * ÀÎÁõ ÇØÁ¦
+	 * ì¸ì¦ í•´ì œ
 	 * @param accountNumber
 	 * @return
 	 */

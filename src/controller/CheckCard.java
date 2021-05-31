@@ -41,29 +41,29 @@ public class CheckCard extends HttpServlet {
 
 		if (request.getParameter("accountNumber") != null) {
 			accountNumber = request.getParameter("accountNumber");
-			exist = atmService.checkAccount(accountNumber); // °èÁÂ È®ÀÎ
+			exist = atmService.checkAccount(accountNumber); // ê³„ì¢Œ í™•ì¸
 		}
 
 		if (exist > 0) { 
-			request.setAttribute("accountNumber", accountNumber); // °èÁÂ¹øÈ£ ÀúÀå
+			request.setAttribute("accountNumber", accountNumber); // ê³„ì¢Œë²ˆí˜¸ ì €ì¥
 			request.setAttribute("action", action);
 
-			if (action.equals("deposit")) { // Á¤»ó¿Ï·á ½Ã ÀÔ±İÈ­¸éÀ¸·Î ÀÌµ¿
+			if (action.equals("deposit")) { // ì •ìƒì™„ë£Œ ì‹œ ì…ê¸ˆí™”ë©´ìœ¼ë¡œ ì´ë™
 				page = "/view/deposit.jsp";
 			}
-			else if (action.equals("transfer") || action.equals("withdraw")) { // Á¤»ó¿Ï·á ½Ã ¼Û±İ ¶Ç´Â Ãâ±İÈ­¸éÀ¸·Î ÀÌµ¿
-				// º»ÀÎÀÎÁõ ÆäÀÌÁö ÀÌµ¿ Àü, º»ÀÎÀÎÁõ ¹øÈ£ ¼¼ÆÃ
+			else if (action.equals("transfer") || action.equals("withdraw")) { // ì •ìƒì™„ë£Œ ì‹œ ì†¡ê¸ˆ ë˜ëŠ” ì¶œê¸ˆí™”ë©´ìœ¼ë¡œ ì´ë™
+				// ë³¸ì¸ì¸ì¦ í˜ì´ì§€ ì´ë™ ì „, ë³¸ì¸ì¸ì¦ ë²ˆí˜¸ ì„¸íŒ…
 				int result = atmService.setCertification(accountNumber);
 				if (result == 200) {
 					page = "/view/checkCertification.jsp";
 				} else {
-					request.setAttribute("errMsg", "´ÙÀ½ ´Ü°è(º»ÀÎÀÎÁõ)¸¦ ÁøÇàÇÒ ¼ö ¾ø½À´Ï´Ù.");
+					request.setAttribute("errMsg", "ë‹¤ìŒ ë‹¨ê³„(ë³¸ì¸ì¸ì¦)ë¥¼ ì§„í–‰í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 					page = "/view/error.jsp";
 				}
 			}
 		}
-		else { // °èÁÂ ¹øÈ£ ¾øÀ» ½Ã ¿¡·¯ÆäÀÌÁö·Î ÀÌµ¿
-			request.setAttribute("errorMsg", "°èÁÂ¹øÈ£¸¦ È®ÀÎÇØÁÖ¼¼¿ä.");
+		else { // ê³„ì¢Œ ë²ˆí˜¸ ì—†ì„ ì‹œ ì—ëŸ¬í˜ì´ì§€ë¡œ ì´ë™
+			request.setAttribute("errorMsg", "ê³„ì¢Œë²ˆí˜¸ë¥¼ í™•ì¸í•´ì£¼ì„¸ìš”.");
 			page = "/view/error.jsp";
 		} 
 

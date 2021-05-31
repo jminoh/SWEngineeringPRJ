@@ -33,9 +33,9 @@ public class Deposit extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Account account = new Account();
-		int amount = 0; // ÀÔ±İÇÒ ±İ¾×
-		int balance = 0; // ÀÜ¾×
-		int tradingResult = 0; // °Å·¡ °á°ú
+		int amount = 0; // ì…ê¸ˆí•  ê¸ˆì•¡
+		int balance = 0; // ì”ì•¡
+		int tradingResult = 0; // ê±°ë˜ ê²°ê³¼
 		String page = null;
 
 		String accountNumber = request.getParameter("accountNumber");
@@ -47,13 +47,13 @@ public class Deposit extends HttpServlet {
 		balance = account.getBalance();
 		tradingResult = account.getTradingResult();
 
-		if (account != null && tradingResult == 200) { // °èÁÂ¿Í Ã³¸® °á°ú°¡ Á¤»ó
+		if (account != null && tradingResult == 200) { // ê³„ì¢Œì™€ ì²˜ë¦¬ ê²°ê³¼ê°€ ì •ìƒ
 			request.setAttribute("action", action);
 			request.setAttribute("accountNumber", accountNumber);
 			request.setAttribute("balance", balance);
 			page = "/view/success.jsp";
 		} else {
-			request.setAttribute("errorMsg", "ÀÔ±İ ½ÇÆĞÇÏ¿´½À´Ï´Ù.");
+			request.setAttribute("errorMsg", "ì…ê¸ˆ ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.");
 			page = "/view/error.jsp";
 		}
 		

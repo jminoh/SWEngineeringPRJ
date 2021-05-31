@@ -33,7 +33,7 @@ public class Certification extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Account account = new Account();
-		String page = null; // ´ÙÀ½ ÆäÀÌÁö º¯¼ö
+		String page = null; // ë‹¤ìŒ í˜ì´ì§€ ë³€ìˆ˜
 		int result = 0;
 
 		String accountNumber = request.getParameter("accountNumber");
@@ -42,19 +42,19 @@ public class Certification extends HttpServlet {
 		ATMService atmService = new ATMServiceImpl();
 		result = atmService.getCertification(accountNumber);
 		
-		if (result == 200) { // °èÁÂ¿Í Ã³¸® °á°ú°¡ Á¤»ó
+		if (result == 200) { // ê³„ì¢Œì™€ ì²˜ë¦¬ ê²°ê³¼ê°€ ì •ìƒ
 			request.setAttribute("accountNumber", accountNumber);
 			request.setAttribute("action", action);
 			
-			if (action.equals("transfer")) { // Á¤»ó¿Ï·á ½Ã ¼Û±İÈ­¸éÀ¸·Î ÀÌµ¿
+			if (action.equals("transfer")) { // ì •ìƒì™„ë£Œ ì‹œ ì†¡ê¸ˆí™”ë©´ìœ¼ë¡œ ì´ë™
 				page = "/view/transfer.jsp";
 			}
-			else if (action.equals("withdraw")) { // Á¤»ó¿Ï·á ½Ã Ãâ±İÈ­¸éÀ¸·Î ÀÌµ¿
+			else if (action.equals("withdraw")) { // ì •ìƒì™„ë£Œ ì‹œ ì¶œê¸ˆí™”ë©´ìœ¼ë¡œ ì´ë™
 				page = "/view/withdraw.jsp";
 			}
 			
 		} else {
-			request.setAttribute("errorMsg", "º»ÀÎÀÎÁõÀÌ ½ÇÆĞÇÏ¿´½À´Ï´Ù.");
+			request.setAttribute("errorMsg", "ë³¸ì¸ì¸ì¦ì´ ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.");
 			atmService.deauthentication(accountNumber);
 			page = "/view/error.jsp";
 		}
