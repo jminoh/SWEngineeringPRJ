@@ -8,18 +8,18 @@ import model.dto.Account;
 
 public class ATMServiceImpl implements ATMService{
 	ATMTrading atmTrading = new ATMTradingImpl();
-	//[TODO] ��Ӱŷ�, ��������
+	//[TODO] 계속거래, 본인인증
 
 	@Override
 	public int checkAccount(String accountNumber) {
-		int exist = atmTrading.checkAccount(accountNumber); // ���� ���� ���� Ȯ��
+		int exist = atmTrading.checkAccount(accountNumber); // 계좌 존재 여부 확인
 		System.out.println(exist);
 		return exist;
 	}
 
 	@Override
 	public int checkCard(String accountNumber) {
-		int exist = atmTrading.checkAccount(accountNumber); // ���� ���� ���� Ȯ��
+		int exist = atmTrading.checkAccount(accountNumber); // 계좌 존재 여부 확인
 		System.out.println(exist);
 		return exist;
 	}
@@ -28,10 +28,10 @@ public class ATMServiceImpl implements ATMService{
 	public Account deposit(String accountNumber, int amount) {
 		Account account = null;
 		System.out.println("accountNumber" + accountNumber+ " amount "+ amount );
-		account = atmTrading.getAccount(accountNumber); // ���� ���� ��������
+		account = atmTrading.getAccount(accountNumber); // 계좌 정보 가져오기
 		System.out.println(account.getAccountNumber() +" "+ account.getBalance());
 		if (account != null) {
-			account = atmTrading.deposit(account, amount); // ���� �Ϸ�� �Ա�	
+			account = atmTrading.deposit(account, amount); // 정상 완료시 입금	
 		}
 		return account;
 	}
@@ -40,10 +40,10 @@ public class ATMServiceImpl implements ATMService{
 	public Account withdraw(String accountNumber, int amount) {
 		Account account = null;
 		System.out.println("accountNumber" + accountNumber+ " amount "+ amount );
-		account = atmTrading.getAccount(accountNumber); // ���� ���� ��������
+		account = atmTrading.getAccount(accountNumber); // 계좌 정보 가져오기
 		System.out.println(account.getAccountNumber() +" "+ account.getBalance());
 		if (account != null) {
-			account = atmTrading.withdraw(account, amount); // ���� �Ϸ�� ���
+			account = atmTrading.withdraw(account, amount); // 정상 완료시 출금
 		}
 		return account;
 	}
@@ -52,22 +52,22 @@ public class ATMServiceImpl implements ATMService{
 	public Account transfer(String accountNumber, String transferAccountNumber, int amount) {
 		Account account = null;
 		Account transferAccount = null;
-		// ���� ���� Ȯ��
-		int exist = checkAccount(transferAccountNumber); // ���� ���� ���� ���� Ȯ��
+		// 상대방 계좌 확인
+		int exist = checkAccount(transferAccountNumber); // 상대방 계좌 존재 여부 확인
 		System.out.println(exist);		
 		if (exist < 0) {
 			account = null;
 			return account;
 		}
 
-		// [TODO] Ʈ��������� �� �� ������ ����߸� ����� Ȯ���ǵ��� ����
-		account = withdraw(accountNumber, amount); // �� ���� ���
-		if(account != null && account.getTradingResult() == 200) { // ���� : �� ���� ���
-			transferAccount = deposit(transferAccountNumber, amount); // �۱� ���¿� �Ա�
+		// [TODO] 트랜잭션으로 둘 다 오류가 없어야만 기능이 확정되도록 변경
+		account = withdraw(accountNumber, amount); // 내 계좌 출금
+		if(account != null && account.getTradingResult() == 200) { // 성공 : 내 계좌 출금
+			transferAccount = deposit(transferAccountNumber, amount); // 송금 계좌에 입금
 			
-			if (transferAccount == null || account.getTradingResult() != 200) { // ���� : ���� �۱�
-				account.setTradingResult(transferAccount.getTradingResult()); // ó����� ���� ǥ��
-				transferAccount = deposit(accountNumber, amount); // �� ���� ���Ա�
+			if (transferAccount == null || account.getTradingResult() != 200) { // 오류 : 계좌 송금
+				account.setTradingResult(transferAccount.getTradingResult()); // 처리결과 오류 표시
+				transferAccount = deposit(accountNumber, amount); // 내 계좌 재입금
 			}
 		}
 
@@ -81,11 +81,11 @@ public class ATMServiceImpl implements ATMService{
 		int result = cert.setCertNumber(accountNumber);
 		
 		if(result > 0) {
-			System.out.println("���������� ���� ������ȣ ���� �Ϸ�.");
+			System.out.println("본인인증을 위한 인증번호 설정 완료");
 			result = 200;
 		}
 		else {
-			System.out.println("���������� �����Ͽ����ϴ�.");
+			System.out.println("본인인증에 실패하였습니다.");
 			result = 600;
 		}
 		return result;
@@ -98,11 +98,11 @@ public class ATMServiceImpl implements ATMService{
 		int result = 0;
 	
 		if(webCert == appCert) {
-			System.out.println("���������� �����߽��ϴ�.");
+			System.out.println("본인인증에 성공했습니다.");
 			result = 200;
 		}
 		else {
-			System.out.println("���������� �����Ͽ����ϴ�.");
+			System.out.println("본인인증에 실패하였습니다.");
 			result = 600;
 		}
 		return result;
@@ -115,11 +115,11 @@ public class ATMServiceImpl implements ATMService{
 		int result = cert.deauthentication(accountNumber);	
 		
 		if(result > 0) {
-			System.out.println("�������� �����߽��ϴ�.");
+			System.out.println("인증해제 성공했습니다.");
 			result = 200;
 		}
 		else {
-			System.out.println("�������� �����Ͽ����ϴ�.");
+			System.out.println("인증해제 실패하였습니다.");
 			result = 600;
 		}
 		return result;
