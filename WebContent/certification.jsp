@@ -35,10 +35,10 @@
 		int count = pstmt.executeUpdate();
 		
 		if(count > 0) {
-			out.println("certification reset success");
+			out.println("인증 성공");
 		}
 		else {
-			out.println("certification reset fail");
+			out.println("인증 에러");
 		}
 		
 	}catch(Exception e){
