@@ -93,10 +93,11 @@ public class ATMServiceImpl implements ATMService{
 	
 	public int getCertification(String accountNumber) {
 		Certification cert = new CertificationImpl();
-		int certification = cert.getWebCert(accountNumber); //에러로 인해 임시로 아무 함수나 가져다 썼음
+		int webCert = cert.getWebCert(accountNumber);
+		int appCert = cert.getAppCert(accountNumber);
 		int result = 0;
 	
-		if(certification > 0) {
+		if(webCert == appCert) {
 			System.out.println("���������� �����߽��ϴ�.");
 			result = 200;
 		}
