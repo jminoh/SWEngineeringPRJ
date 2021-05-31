@@ -8,18 +8,18 @@ import model.dto.Account;
 
 public class ATMServiceImpl implements ATMService{
 	ATMTrading atmTrading = new ATMTradingImpl();
-	//[TODO] °è¼Ó°Å·¡, º»ÀÎÀÎÁõ
+	//[TODO] ï¿½ï¿½Ó°Å·ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	@Override
 	public int checkAccount(String accountNumber) {
-		int exist = atmTrading.checkAccount(accountNumber); // °èÁÂ Á¸Àç ¿©ºÎ È®ÀÎ
+		int exist = atmTrading.checkAccount(accountNumber); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 		System.out.println(exist);
 		return exist;
 	}
 
 	@Override
 	public int checkCard(String accountNumber) {
-		int exist = atmTrading.checkAccount(accountNumber); // °èÁÂ Á¸Àç ¿©ºÎ È®ÀÎ
+		int exist = atmTrading.checkAccount(accountNumber); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 		System.out.println(exist);
 		return exist;
 	}
@@ -28,10 +28,10 @@ public class ATMServiceImpl implements ATMService{
 	public Account deposit(String accountNumber, int amount) {
 		Account account = null;
 		System.out.println("accountNumber" + accountNumber+ " amount "+ amount );
-		account = atmTrading.getAccount(accountNumber); // °èÁÂ Á¤º¸ °¡Á®¿À±â
+		account = atmTrading.getAccount(accountNumber); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		System.out.println(account.getAccountNumber() +" "+ account.getBalance());
 		if (account != null) {
-			account = atmTrading.deposit(account, amount); // Á¤»ó ¿Ï·á½Ã ÀÔ±Ý	
+			account = atmTrading.deposit(account, amount); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ï¿½ ï¿½Ô±ï¿½	
 		}
 		return account;
 	}
@@ -40,10 +40,10 @@ public class ATMServiceImpl implements ATMService{
 	public Account withdraw(String accountNumber, int amount) {
 		Account account = null;
 		System.out.println("accountNumber" + accountNumber+ " amount "+ amount );
-		account = atmTrading.getAccount(accountNumber); // °èÁÂ Á¤º¸ °¡Á®¿À±â
+		account = atmTrading.getAccount(accountNumber); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		System.out.println(account.getAccountNumber() +" "+ account.getBalance());
 		if (account != null) {
-			account = atmTrading.withdraw(account, amount); // Á¤»ó ¿Ï·á½Ã Ãâ±Ý
+			account = atmTrading.withdraw(account, amount); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ï¿½ ï¿½ï¿½ï¿½
 		}
 		return account;
 	}
@@ -52,22 +52,22 @@ public class ATMServiceImpl implements ATMService{
 	public Account transfer(String accountNumber, String transferAccountNumber, int amount) {
 		Account account = null;
 		Account transferAccount = null;
-		// »ó´ë¹æ °èÁÂ È®ÀÎ
-		int exist = checkAccount(transferAccountNumber); // »ó´ë¹æ °èÁÂ Á¸Àç ¿©ºÎ È®ÀÎ
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+		int exist = checkAccount(transferAccountNumber); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 		System.out.println(exist);		
 		if (exist < 0) {
 			account = null;
 			return account;
 		}
 
-		// [TODO] Æ®·£Àè¼ÇÀ¸·Î µÑ ´Ù ¿À·ù°¡ ¾ø¾î¾ß¸¸ ±â´ÉÀÌ È®Á¤µÇµµ·Ï º¯°æ
-		account = withdraw(accountNumber, amount); // ³» °èÁÂ Ãâ±Ý
-		if(account != null && account.getTradingResult() == 200) { // ¼º°ø : ³» °èÁÂ Ãâ±Ý
-			transferAccount = deposit(transferAccountNumber, amount); // ¼Û±Ý °èÁÂ¿¡ ÀÔ±Ý
+		// [TODO] Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ß¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		account = withdraw(accountNumber, amount); // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+		if(account != null && account.getTradingResult() == 200) { // ï¿½ï¿½ï¿½ï¿½ : ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+			transferAccount = deposit(transferAccountNumber, amount); // ï¿½Û±ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ ï¿½Ô±ï¿½
 			
-			if (transferAccount == null || account.getTradingResult() != 200) { // ¿À·ù : °èÁÂ ¼Û±Ý
-				account.setTradingResult(transferAccount.getTradingResult()); // Ã³¸®°á°ú ¿À·ù Ç¥½Ã
-				transferAccount = deposit(accountNumber, amount); // ³» °èÁÂ ÀçÀÔ±Ý
+			if (transferAccount == null || account.getTradingResult() != 200) { // ï¿½ï¿½ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½ ï¿½Û±ï¿½
+				account.setTradingResult(transferAccount.getTradingResult()); // Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
+				transferAccount = deposit(accountNumber, amount); // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ô±ï¿½
 			}
 		}
 
@@ -81,11 +81,11 @@ public class ATMServiceImpl implements ATMService{
 		int result = cert.setCertNumber(accountNumber);
 		
 		if(result > 0) {
-			System.out.println("º»ÀÎÀÎÁõÀ» À§ÇÑ ÀÎÁõ¹øÈ£ ¼³Á¤ ¿Ï·á.");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½.");
 			result = 200;
 		}
 		else {
-			System.out.println("º»ÀÎÀÎÁõ¿¡ ½ÇÆÐÇÏ¿´½À´Ï´Ù.");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 			result = 600;
 		}
 		return result;
@@ -93,32 +93,32 @@ public class ATMServiceImpl implements ATMService{
 	
 	public int getCertification(String accountNumber) {
 		Certification cert = new CertificationImpl();
-		int certification = cert.getCertification(accountNumber);
+		int certification = cert.getWebCert(accountNumber); //ì—ëŸ¬ë¡œ ì¸í•´ ìž„ì‹œë¡œ ì•„ë¬´ í•¨ìˆ˜ë‚˜ ê°€ì ¸ë‹¤ ì¼ìŒ
 		int result = 0;
 	
 		if(certification > 0) {
-			System.out.println("º»ÀÎÀÎÁõ¿¡ ¼º°øÇß½À´Ï´Ù.");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.");
 			result = 200;
 		}
 		else {
-			System.out.println("º»ÀÎÀÎÁõ¿¡ ½ÇÆÐÇÏ¿´½À´Ï´Ù.");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 			result = 600;
 		}
 		return result;
 		
-	}
-
+	} 
+	
 	@Override
 	public int deauthentication(String accountNumber) {
 		Certification cert = new CertificationImpl();
 		int result = cert.deauthentication(accountNumber);	
 		
 		if(result > 0) {
-			System.out.println("ÀÎÁõÇØÁ¦ ¼º°øÇß½À´Ï´Ù.");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.");
 			result = 200;
 		}
 		else {
-			System.out.println("ÀÎÁõÇØÁ¦ ½ÇÆÐÇÏ¿´½À´Ï´Ù.");
+			System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 			result = 600;
 		}
 		return result;

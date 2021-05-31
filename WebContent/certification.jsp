@@ -23,14 +23,15 @@
 		conn = DriverManager.getConnection(jdbcUrl, dbId, dbPass);
 		
 		request.setCharacterEncoding("UTF-8"); // 파라미터값 인코딩
+		int app_cert = Integer.parseInt(request.getParameter("app_cert"));
 		String phone_number = request.getParameter("phone_number"); // 파라미터값 phone_number를 phone_number에 저장
 		
-		String sql = "update certification set certification = ? where certification.user_id in (select user.user_id from user where user.phone_number = ?)";
+		String sql = "update certification set app_cert = ? where certification.user_id in (select user.user_id from user where user.phone_number = ?)";
 		pstmt = conn.prepareStatement(sql);
 		
-		pstmt.setInt(1, 1);
+		pstmt.setInt(1, app_cert);
 		pstmt.setString(2, phone_number);
-		
+	
 		int count = pstmt.executeUpdate();
 		
 		if(count > 0) {

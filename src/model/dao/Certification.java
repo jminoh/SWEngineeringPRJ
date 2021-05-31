@@ -2,32 +2,32 @@ package model.dao;
 
 public interface Certification {
 	/**
-	 * º»ÀÎ ÀÎÁõ
+	 * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	 * @param accountNumber
 	 * @return
 	 */
 	public int deauthentication(String accountNumber);
 
 	/**
-	 * ÀÎÁõ¹øÈ£ ¾÷µ¥ÀÌÆ®
-	 * 8ÀÚ¸® ³­¼ö¸¦ ¸¸µé¾î¼­ ÀÎÁõ¹øÈ£ »ý¼º
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+	 * 8ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½î¼­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½
 	 * @param accountNumber
 	 * @return
 	 */
 	public int setCertNumber(String accountNumber);
 	
 	/**
-	 * ÀÎÁõ¹øÈ£ °¡Á®¿À±â
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @param accountNumber
 	 * @return
 	 */
-	public int getCertNumber(String accountNumber);
+	public int getWebCert(String accountNumber);
 	
 	/**
-	 * ÀÎÁõ¿©ºÎ °¡Á®¿À±â
-	 * (ÀÎÁõ¿©ºÎ ¾÷µ¥ÀÌÆ®´Â ¾Û¿¡¼­ ÁøÇà)
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Û¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 	 * @param accountNumber
 	 * @return
 	 */
-	public int getCertification(String accountNumber);
+	public int getAppCert(String accountNumber);
 }
