@@ -2,7 +2,7 @@ package model.dao;
 
 public interface Certification {
 	/**
-	 * 본인 인증
+	 * 본인 인증 정보 해제
 	 * @param accountNumber
 	 * @return
 	 */

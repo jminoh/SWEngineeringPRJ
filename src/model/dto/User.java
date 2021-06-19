@@ -1,8 +1,8 @@
 package model.dto;
 
 public class User {
-	String name;
-	int accountNumber;
+	String name; // 이름
+	int accountNumber; // 계좌번호
 
 	public User(String name, int accountNumber) {
 		this.name = name;

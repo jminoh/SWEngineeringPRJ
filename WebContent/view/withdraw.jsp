@@ -75,7 +75,6 @@ function setText(number) {
 
 		</div>
 		<form action = "/atm_service/atm-services/withdraw" method = "post"> 
- <%-- Account 객체 가져와 포함 시켜주어야 합니다. --%>
 			<input type = "hidden" name = "action" value = "${action}" />
 			<input type = "hidden" name = "accountNumber" value = "${accountNumber}" />
 			<input type = "text" name = "amount" id ="inputText"/> <%-- 출금할 금액 --%>
@@ -86,6 +85,7 @@ function setText(number) {
 	  <div id="right">
 		  <div class="a3">
 			<div>
+			<%-- setText(출금금액) 함수를 이용하여 출금금액 입력창에 금액 입력 --%>
 			<button class="btn1" onclick="setText(1)">1</button>
 			<button class="btn1" onclick="setText(2)">2</button>
 			<button class="btn1" onclick="setText(3)">3</button>

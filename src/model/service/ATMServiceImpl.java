@@ -93,11 +93,11 @@ public class ATMServiceImpl implements ATMService{
 	
 	public int getCertification(String accountNumber) {
 		Certification cert = new CertificationImpl();
-		int webCert = cert.getWebCert(accountNumber);
-		int appCert = cert.getAppCert(accountNumber);
+		int webCert = cert.getWebCert(accountNumber); // ATM에서 저장한 난수 가져오기
+		int appCert = cert.getAppCert(accountNumber); // 본인인증 앱에서 저장한 난수 가져오기
 		int result = 0;
 	
-		if(webCert == appCert) {
+		if(webCert == appCert) { // 두 난수를 비교하여 본인인증 진행
 			System.out.println("본인인증에 성공했습니다.");
 			result = 200;
 		}
@@ -112,7 +112,7 @@ public class ATMServiceImpl implements ATMService{
 	@Override
 	public int deauthentication(String accountNumber) {
 		Certification cert = new CertificationImpl();
-		int result = cert.deauthentication(accountNumber);	
+		int result = cert.deauthentication(accountNumber);	// 본인인증 해제
 		
 		if(result > 0) {
 			System.out.println("인증해제 성공했습니다.");

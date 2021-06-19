@@ -41,6 +41,7 @@ public class CertificationImpl implements Certification{
 		
 		try {
 			con = DBUtil.getConnection();
+			/* 난수 업데이트 */
 			String sql = "update certification set web_cert = ?, app_cert = ? where certification.user_id in (select user.user_id from user where user.account_number = ?)";
 			pstmt = con.prepareStatement(sql);
 			

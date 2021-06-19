@@ -15,10 +15,12 @@ public class DBUtil {
 		}
 	}
 	
+	/* 데이터베이스 연결 */
 	public static Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(DBProperty.URL, DBProperty.ID, DBProperty.PW);
 	}
 	
+	/* 데이터베이스 연결 해제 */
 	public static void dbClose(Connection con, Statement st) {
 		try {
 			if (st != null)
@@ -29,7 +31,7 @@ public class DBUtil {
 			e.printStackTrace();
 		}
 	}
-	
+	/* 데이터베이스 연결 해제 */
 	public static void dbClose(Connection con, Statement st, ResultSet rs) {
 		try {
 			if (rs != null)

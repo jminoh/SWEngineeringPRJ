@@ -38,7 +38,7 @@ public class Continue extends HttpServlet {
 		String checkContinue = request.getParameter("continue");
 		String page = null;
 
-		if (checkContinue.equals("yes")) {
+		if (checkContinue.equals("yes")) { // 계속거래 시 거래 페이지로 이동
 			request.setAttribute("accountNumber", accountNumber);
 			request.setAttribute("action", action);
 
@@ -50,9 +50,9 @@ public class Continue extends HttpServlet {
 				page = "/view/withdraw.jsp";
 			}			
 		} else {
-			if (action.equals("transfer") || action.equals("withdraw")) {
+			if (action.equals("transfer") || action.equals("withdraw")) { // 계속거래 하지 않을 시 메인으로 이동
 				ATMService atmService = new ATMServiceImpl();
-				atmService.deauthentication(accountNumber);
+				atmService.deauthentication(accountNumber); // 거래 종료 시 본인인증 해제
 			}
 			page = "/index.jsp";
 		}

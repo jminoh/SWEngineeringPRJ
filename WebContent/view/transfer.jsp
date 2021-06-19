@@ -87,6 +87,7 @@ function setText(number) {
  
 	   <div id="right">
 		   <div class="a3">
+		   <%-- setText(송금금액) 함수를 이용하여 송금금액 입력창에 금액 입력 --%>
 			<div>
 			<button class="btn1" onclick="setText(1)">1</button>
 			<button class="btn1" onclick="setText(2)">2</button>

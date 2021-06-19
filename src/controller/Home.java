@@ -34,10 +34,10 @@ public class Home extends HttpServlet {
 		String page = null;
 
 		if (action.equals("index")) {
-			page = "/index.jsp";
+			page = "/index.jsp"; // 메인으로
 		}else {
 			request.setAttribute("action", action);
-			page = "/view/check.jsp";			
+			page = "/view/check.jsp"; // 계좌정보 체크		
 		}
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher(page);
