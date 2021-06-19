@@ -39,7 +39,14 @@ public class Deposit extends HttpServlet {
 		String page = null;
 
 		String accountNumber = request.getParameter("accountNumber");
-		amount = Integer.parseInt(request.getParameter("amount"));
+		try { // 계좌번호 없이 입금버튼 눌렀을 경우
+			amount = Integer.parseInt(request.getParameter("amount"));
+		} catch (NumberFormatException e) {
+			request.setAttribute("errorMsg", "금액을 확인해 주세요.");
+			page = "/view/error.jsp";
+			RequestDispatcher dispatcher = request.getRequestDispatcher(page);
+			dispatcher.forward(request, response);
+		}
 		String action = request.getParameter("action");
 
 		ATMService atmService = new ATMServiceImpl();

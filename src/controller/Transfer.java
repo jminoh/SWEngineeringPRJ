@@ -41,13 +41,29 @@ public class Transfer extends HttpServlet {
 		String action = request.getParameter("action");
 		String accountNumber = request.getParameter("accountNumber");
 		String transferAccountNumber = request.getParameter("transferAccountNumber");
-		amount = Integer.parseInt(request.getParameter("amount"));
+		try { // 계좌번호 없이 송금버튼 눌렀을 경우
+			amount = Integer.parseInt(request.getParameter("amount"));
+		} catch (NumberFormatException e) {
+			request.setAttribute("errorMsg", "금액을 확인해 주세요.");
+			page = "/view/error.jsp";
+			RequestDispatcher dispatcher = request.getRequestDispatcher(page);
+			dispatcher.forward(request, response);
+		}
+		
+		if (accountNumber.equals(transferAccountNumber)) { // 본인계좌일 경우 송금 불가
+			request.setAttribute("errorMsg", "거래에 실패하였습니다.<br>동일 계좌입니다."); // 처리 실패
+			page = "/view/error.jsp";
+			RequestDispatcher dispatcher = request.getRequestDispatcher(page);
+			dispatcher.forward(request, response);
+			return;
+		} 
+			
 		
 		ATMService atmService = new ATMServiceImpl();
 		account = atmService.transfer(accountNumber, transferAccountNumber, amount);
 		balance = account.getBalance();
 		tradingResult = account.getTradingResult();
-
+		
 		if (account != null && tradingResult == 200) { // 계좌와 처리 결과가 정상
 			request.setAttribute("accountNumber", accountNumber);
 			request.setAttribute("balance", balance);
