@@ -53,13 +53,19 @@
 
 <script type="text/javascript">
 function setText(number) {
-	var text = document.getElementById("inputText").value;
+	var text = document.getElementById("inputText").value; // 현재 입금금액 입력창에 있는 값 읽어오기
 	if (number == "-100") {
-		document.getElementById("inputText").value = text.slice(0, text.length -1);
-	} else if (number == "-200") {
-		document.getElementById("inputText").value = '';
+		document.getElementById("inputText").value = text.slice(0, text.length -1); // 현재 입금금액 입력창의 맨 마지막 숫자 삭제
+	} else if (number == "-200") { 
+		document.getElementById("inputText").value = ''; // 현재 입금금액 입력창의 금액 삭제
 	} else {
-		document.getElementById("inputText").value += number;
+		if (number == "0" | number == "000" | number == "0000") {
+			if (document.getElementById("inputText").value != '') { // 0을 입력 시 시작 숫자가 아니면 입력
+				document.getElementById("inputText").value += number;
+			}
+		} else {
+			document.getElementById("inputText").value += number; // 그 외 숫자 입력
+		}
 	}
 }
 </script>
@@ -83,8 +89,9 @@ function setText(number) {
 	   </div>
 	   <div id="right">
 		   <div class="a3">
+			<%-- setText(입금금액) 함수를 이용하여 입금금액 입력창에 금액 입력 --%>
 			<div>
-			<button class="btn1" onclick="setText(1)">1</button>
+			<button class="btn1" onclick="setText(1)">1</button> 
 			<button class="btn1" onclick="setText(2)">2</button>
 			<button class="btn1" onclick="setText(3)">3</button>
 			</div>

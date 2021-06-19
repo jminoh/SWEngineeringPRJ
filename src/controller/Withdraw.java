@@ -50,6 +50,7 @@ public class Withdraw extends HttpServlet {
 		if (account != null && tradingResult == 200) { // 계좌와 처리 결과가 정상
 			request.setAttribute("accountNumber", accountNumber);
 			request.setAttribute("balance", balance);
+			request.setAttribute("amount", amount);
 			request.setAttribute("action", action); // 계속 거래 시 넘겨받을 action 정보
 			page = "/view/success.jsp";
 		} else {

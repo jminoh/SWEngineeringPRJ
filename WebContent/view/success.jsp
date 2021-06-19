@@ -59,7 +59,7 @@
 	   <div id="left" >
 		 <div class="a1">
  
-			 <p class="a2">	${accountNumber} : ${balance}<br>
+			 <p class="a2">	계좌 : ${accountNumber}<br> 거래금액 : ${amount}<br> 잔액 : ${balance}<br>
 				계속 거래하시겠습니까?<br></p> 
  
 		 </div>

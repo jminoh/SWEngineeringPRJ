@@ -51,6 +51,7 @@ public class Transfer extends HttpServlet {
 		if (account != null && tradingResult == 200) { // 계좌와 처리 결과가 정상
 			request.setAttribute("accountNumber", accountNumber);
 			request.setAttribute("balance", balance);
+			request.setAttribute("amount", amount);
 			request.setAttribute("action", action);
 			page = "/view/success.jsp";
 		} else {

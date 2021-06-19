@@ -50,6 +50,7 @@ public class Deposit extends HttpServlet {
 		if (account != null && tradingResult == 200) { // 계좌와 처리 결과가 정상
 			request.setAttribute("action", action);
 			request.setAttribute("accountNumber", accountNumber);
+			request.setAttribute("amount", amount);
 			request.setAttribute("balance", balance);
 			page = "/view/success.jsp";
 		} else {

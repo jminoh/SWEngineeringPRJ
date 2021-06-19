@@ -23,9 +23,9 @@
 		conn = DriverManager.getConnection(jdbcUrl, dbId, dbPass);
 		
 		request.setCharacterEncoding("UTF-8"); // 파라미터값 인코딩
-		int app_cert = Integer.parseInt(request.getParameter("app_cert"));
+		int app_cert = Integer.parseInt(request.getParameter("app_cert")); // 파라미터값 app_cert를 app_cert에 저장
 		String phone_number = request.getParameter("phone_number"); // 파라미터값 phone_number를 phone_number에 저장
-		
+		// 본인인증 앱에서 생성해 가져온 app_cert 난수를 DB에 저장
 		String sql = "update certification set app_cert = ? where certification.user_id in (select user.user_id from user where user.phone_number = ?)";
 		pstmt = conn.prepareStatement(sql);
 		
